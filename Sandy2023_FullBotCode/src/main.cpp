@@ -140,15 +140,15 @@ void Forward(string dir, double revs){
 
 /*---------------------------------------*/
 void autonomous(void) {
-  Forward("fwd", 3);
+  Forward("fwd", 3); // Gets in range
   Shoot();
   wait(2, seconds);
-  Forward("rev", 3);
+  Forward("rev", 3); // Backs up to roller
   Side("left", 3);
   Forward("rev", 5);
-  Rotation("right", 5);
+  Rotation("right", 5); // Rotates towards roller
   Forward("fwd", 3);
-  Roller("in");
+  Roller("in"); // Spins roller
   wait(2, seconds);
  
 } 
