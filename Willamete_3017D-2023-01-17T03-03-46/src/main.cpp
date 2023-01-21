@@ -147,7 +147,7 @@ void usercontrol(void) {
 
     /*Launcher*/
     if (Controller1.ButtonR1.pressing()){
-      shoot(25);
+      motor_group(launcher01, launcher02, launcher_single).spin(fwd, 100, pct);
     }
     else{
       motor_group(launcher01, launcher02, launcher_single).stop();
