@@ -91,10 +91,28 @@ void rol(double dis){
 
 /*-----------------------------------------*/
 
-void autonomous(void) {
-  drive('w', 2);
-  rol(.25);
+void rollerTurn(){
   drive('s', 2);
+  drive('e', 2);  //  Rotate 90 degrees
+  drive('d', 2);
+  drive('w', 2);
+}
+
+void autonomous(void) {
+  float rollerDis = .25;
+
+  drive('w', 2);
+  rol(rollerDis); //  First roller
+  rollerTurn();
+  rol(rollerDis); //  Second roller
+  drive('s', 2);
+  drive('e', 3);
+  drive('w', 15);
+  drive('q', 1);
+  drive('w', 2);
+  rol(rollerDis); //  Third roller
+  rollerTurn();
+  rol(rollerDis); //  Final roller
 }
 
 /*-----------------------------------------*/
