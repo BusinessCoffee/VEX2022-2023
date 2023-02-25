@@ -32,6 +32,7 @@ competition Competition;
 int mode = 3; //Shooting distance
 float roller = .5;  //Revolutions
 float default_speed = 100;  //Percentage
+float shooting_speed = 100; //Percentage
 float charge_time = 2;  //Seconds
 bool debounce = true;
 
@@ -182,10 +183,43 @@ void usercontrol(void) {
 
 //-----------------//Shoot
   if(Controller1.ButtonR1.pressing()){
-    motor_group(shoot01, shoot02, pharynx).spin(fwd, 100, pct); //Shoot disc
+    motor_group(shoot01, shoot02, pharynx).spin(fwd, shooting_speed, pct); //Shoot disc
   }
   else{
     motor_group(shoot01, shoot02, pharynx).stop();
+  }
+
+  if(Controller1.ButtonUp.pressing() || Controller1.ButtonDown.pressing()){
+    if (Controller1.ButtonUp.pressing() && mode < 2 && debounce){
+      debounce = false;
+      mode++;
+      wait(.5, sec);
+      debounce = true;
+    }
+    else if (Controller1.ButtonUp.pressing() && mode > 0 && debounce){
+      debounce = false;
+      mode--;
+      wait(.5, sec);
+      debounce = true;
+    }
+    Controller1.Screen.clearScreen();
+    switch (mode){
+      case 0:{
+        motor_group(shoot01, shoot02, pharynx).setVelocity(shooting_speed = 50, pct); //Shoot disc close
+        Controller1.Screen.print("CLOSE");
+        break;
+      }
+      case 1:{
+        motor_group(shoot01, shoot02, pharynx).setVelocity(shooting_speed = 75, pct); //Shoot disc mid
+        Controller1.Screen.print("MID");
+        break;
+      }
+      case 2:{
+        motor_group(shoot01, shoot02, pharynx).setVelocity(shooting_speed = 100, pct); //Shoot disc far
+        Controller1.Screen.print("FAR");
+        break;
+      }
+    }
   }
 
 //-----------------//Railgun
